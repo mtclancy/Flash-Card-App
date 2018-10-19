@@ -42,6 +42,6 @@ export class PostsCreateComponent implements OnInit {
         } else {
             this.postsService.updatePost(this.postId, form.value.title, form.value.content, this.post.likes);
         }
-       
+        form.resetForm();
     }
 }

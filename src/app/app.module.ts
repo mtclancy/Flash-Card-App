@@ -9,8 +9,10 @@ import { PostsComponent } from './posts/posts.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { PostsCreateComponent } from './posts/posts-create/posts-create.component'
+import { PostsCreateComponent } from './posts/posts-create/posts-create.component';
 import { PostsService } from './posts/posts.service';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { PostsService } from './posts/posts.service';
     PostsComponent,
     HeaderComponent,
     SidebarComponent,
-    PostsCreateComponent
+    PostsCreateComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

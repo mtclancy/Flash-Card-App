@@ -4,8 +4,18 @@ import { Routes, RouterModule} from '@angular/router'
 import { UsersComponent } from './users/users.component'
 import { PostsComponent } from './posts/posts.component'
 import { PostsCreateComponent } from './posts/posts-create/posts-create.component'
+import { LoginComponent } from './auth/login/login.component'
+import { SignupComponent } from './auth/signup/signup.component'
 
 const routes: Routes =[
+  {
+    path: 'signup',
+    component: SignupComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
   {
     path: 'users',
     component: UsersComponent
