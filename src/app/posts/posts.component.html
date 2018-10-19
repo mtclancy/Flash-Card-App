@@ -1,15 +1,20 @@
-<h1>Posts</h1>
-<div>
-    <a class="btn btn-primary" routerLink="/posts/posts-create" routerLinkActive="active">Create New Post</a>
-</div>
-<div style="padding: 10px; display: inline-block;" *ngFor="let post of posts">
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">{{ post.content }}</p>
-            <button (click)="onDelete(post.id)" class="btn btn-primary">Delete</button>
-            <a [routerLink]="['/posts/edit', post.id]" class="btn btn-primary">Edit</a>
-            <button (click)="likePost(post)" class="btn btn-success">Like</button>
+<div class="post-page">
+    <h1>Posts</h1>
+    <div>
+        <a class="btn btn-primary" routerLink="/posts/posts-create" routerLinkActive="active">Create New Post</a>
+    </div>
+    <div style="padding: 10px; display: inline-block;" *ngFor="let post of posts">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <span style="float:right;">{{ post.likes }}</span>
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">{{ post.content }}</p>
+                <div>
+                    <button (click)="onDelete(post.id)" class="btn btn-primary post-nav">Delete</button>
+                    <a [routerLink]="['/posts/edit', post.id]" class="btn btn-primary post-nav">Edit</a>
+                    <button (click)="likePost(post)" class="btn btn-success post-nav">Like</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
