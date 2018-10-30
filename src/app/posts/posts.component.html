@@ -8,8 +8,8 @@
             <span style="float:right;">{{ post.likes }}</span>
             <h5 class="card-title">{{ post.title }}</h5>
             <p class="card-text">{{ post.content }}</p>
-            <button (click)="onDelete(post.id)" class="btn btn-primary post-nav">Delete</button>
-            <a [routerLink]="['/posts/edit', post.id]" class="btn btn-primary post-nav">Edit</a>
+            <button *ngIf="userIsAuthenticated" (click)="onDelete(post.id)" class="btn btn-primary post-nav">Delete</button>
+            <a *ngIf="userIsAuthenticated" [routerLink]="['/posts/edit', post.id]" class="btn btn-primary post-nav">Edit</a>
             <button (click)="likePost(post)" class="btn btn-success post-nav">Like</button>
         </div>
     </div>

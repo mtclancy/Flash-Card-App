@@ -6,6 +6,7 @@ import { PostsComponent } from './posts/posts.component'
 import { PostsCreateComponent } from './posts/posts-create/posts-create.component'
 import { LoginComponent } from './auth/login/login.component'
 import { SignupComponent } from './auth/signup/signup.component'
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes =[
   {
@@ -26,16 +27,19 @@ const routes: Routes =[
   },
   {
     path: 'posts/posts-create',
-    component: PostsCreateComponent
+    component: PostsCreateComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'posts/edit/:postId',
-    component: PostsCreateComponent
+    component: PostsCreateComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [ RouterModule ]
+  exports: [ RouterModule ],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }

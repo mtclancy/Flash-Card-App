@@ -11,6 +11,7 @@ import { AuthService } from "../auth.service";
 export class LoginComponent {
 
     constructor(public authService: AuthService) {}
+    
     onLogin(form: NgForm){
         if(form.invalid) {
             return;

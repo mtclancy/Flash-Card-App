@@ -25,10 +25,12 @@ export class PostsService {
                     content: post.content,
                     id: post._id,
                     likes: post.likes,
+                    creator: post.creator
                 };
             });
         }))
         .subscribe(transformedPosts => {
+        console.log(transformedPosts);
         this.posts = transformedPosts;
         this.postsUpdated.next([...this.posts]);
        });
