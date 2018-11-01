@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { Router } from "@angular/router";
 
 import { Post } from "./posts.model";
+import { Title } from "@angular/platform-browser";
 
 @Injectable({ providedIn: "root" })
 export class PostsService {
@@ -30,14 +31,16 @@ export class PostsService {
             });
         }))
         .subscribe(transformedPosts => {
-        console.log(transformedPosts);
+            transformedPosts.sort((a, b) => {
+                return b.likes - a.likes;
+            });
         this.posts = transformedPosts;
         this.postsUpdated.next([...this.posts]);
        });
    }
 
    getPost(id: string) {
-       return this.http.get<{_id: string; title: string; content: string; likes: number }>("http://localhost:3000/api/posts/" + id);
+       return this.http.get<{_id: string; title: string; content: string; likes: number; creator: string }>("http://localhost:3000/api/posts/" + id);
    }
 
    getPostUpdateListener() {
@@ -45,7 +48,7 @@ export class PostsService {
    }
 
    addPost(title: string, content: string) {
-       const post: Post = {id: null, title: title, content: content, likes: 0};
+       const post: Post = {id: null, title: title, content: content, likes: 0, creator: null};
        this.http.post<{message: string, postId: string}>("http://localhost:3000/api/posts/", post)
        .subscribe(responseData => {
             const id= responseData.postId;
@@ -57,7 +60,7 @@ export class PostsService {
    }
 
    updatePost(id: string, title: string, content: string, likes: number) {
-       const post: Post = { id: id, title: title, content: content, likes: likes };
+       const post: Post = { id: id, title: title, content: content, likes: likes, creator: null };
        this.http.put("http://localhost:3000/api/posts/" + id, post)
        .subscribe(response => {
            const updatedPosts = [...this.posts];
@@ -69,6 +72,19 @@ export class PostsService {
        });
    }
 
+   updateLikes(id: string, title: string, content: string, likes: number, creator: string) {
+       const post: Post = { id: id, title: title, content: content, likes: likes, creator: creator };
+       this.http.put("http://localhost:3000/api/posts/likes/" + id, post)
+       .subscribe(response => {
+           const updatedPosts = [...this.posts];
+           const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
+           updatedPosts[oldPostIndex] = post;
+           this.posts = updatedPosts;
+           this.postsUpdated.next([...this.posts]);
+           this.getPosts();
+       });
+   }
+
    deletePost(postId: string) {
        this.http.delete("http://localhost:3000/api/posts/" + postId)
         .subscribe(() => {
@@ -77,4 +93,5 @@ export class PostsService {
         this.postsUpdated.next([...this.posts]);
         });
    }
+
 }

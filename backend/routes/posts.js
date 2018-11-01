@@ -1,5 +1,6 @@
 const express = require("express");
 
+const User = require('../models/user');
 const Post = require('../models/post');
 const checkAuth = require("../middleware/check-auth");
 
@@ -45,7 +46,8 @@ router.put("/:id", checkAuth, (req, res, next) => {
         _id: req.body.id,
         title: req.body.title,
         content: req.body.content,
-        likes: req.body.likes
+        likes: req.body.likes,
+        creator: req.userData.userId
     });
     Post.updateOne({_id: req.params.id, creator: req.userData.userId}, post).then(result => {
         if(result.nModified > 0) {
@@ -55,7 +57,7 @@ router.put("/:id", checkAuth, (req, res, next) => {
         }
         
     });
-})
+});
 
 router.delete("/:id", checkAuth, (req, res, next) => {
     Post.deleteOne({ _id: req.params.id, creator: req.userData.userId}).then(result => {
@@ -67,4 +69,39 @@ router.delete("/:id", checkAuth, (req, res, next) => {
     });
 });
 
+router.put("/likes/:id", checkAuth, (req, res, next) => {
+    const post = new Post({
+        _id: req.body.id,
+        title: req.body.title,
+        content: req.body.content,
+        likes: req.body.likes,
+        creator: req.body.creator
+    });
+    User.findOne({email: req.userData.email}).then(user => {
+        if(user) {
+            console.log(req.body.id);
+            const likedPosts = user.likedPosts;
+            const match = likedPosts.filter(a => a == req.body.id);
+            console.log(match);
+            if(match.length > 0) {
+                return res.status(401).json({ message: "Post already liked!"});
+            } else {
+                Post.updateOne({_id: req.params.id}, post)
+                .then(result => {
+                     return res.status(200).json({ message: "Update successful" });
+              }).then(() => {
+              User.updateOne({email: req.userData.email}, {$push: {likedPosts: post._id}}).then(user => {
+                  console.log(user);
+                  });
+              });
+            }
+        } else {
+            return res.status(401).json({ message: "Not Authorized"});
+        }
+    })
+           
+    
+});
+
 module.exports = router;
+
