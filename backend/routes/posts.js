@@ -79,10 +79,8 @@ router.put("/likes/:id", checkAuth, (req, res, next) => {
     });
     User.findOne({email: req.userData.email}).then(user => {
         if(user) {
-            console.log(req.body.id);
             const likedPosts = user.likedPosts;
             const match = likedPosts.filter(a => a == req.body.id);
-            console.log(match);
             if(match.length > 0) {
                 return res.status(401).json({ message: "Post already liked!"});
             } else {

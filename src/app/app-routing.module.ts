@@ -6,6 +6,7 @@ import { PostsComponent } from './posts/posts.component'
 import { PostsCreateComponent } from './posts/posts-create/posts-create.component'
 import { LoginComponent } from './auth/login/login.component'
 import { SignupComponent } from './auth/signup/signup.component'
+import { FactsComponent } from './facts/facts.component'
 import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes =[
@@ -33,6 +34,11 @@ const routes: Routes =[
   {
     path: 'posts/edit/:postId',
     component: PostsCreateComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'posts/facts',
+    component: FactsComponent,
     canActivate: [AuthGuard]
   }
 ];
