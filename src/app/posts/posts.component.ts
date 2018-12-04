@@ -40,7 +40,7 @@ export class PostsComponent implements OnInit, OnDestroy {
   }
 
   likePost(post: Post) {
-    this.postsService.updateLikes(post.id, post.title, post.content, post.likes + 1, post.creator);
+    this.postsService.updateLikes(post.id, post.title, post.content, post.likes + 1, post.creator, post.facts);
   }
 
   ngOnDestroy() {

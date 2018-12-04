@@ -26,7 +26,8 @@ export class PostsService {
                     content: post.content,
                     id: post._id,
                     likes: post.likes,
-                    creator: post.creator
+                    creator: post.creator,
+                    facts: post.facts
                 };
             });
         }))
@@ -40,7 +41,7 @@ export class PostsService {
    }
 
    getPost(id: string) {
-       return this.http.get<{_id: string; title: string; content: string; likes: number; creator: string }>("http://localhost:3000/api/posts/" + id);
+       return this.http.get<{_id: string; title: string; content: string; likes: number; creator: string; facts: any }>("http://localhost:3000/api/posts/" + id);
    }
 
    getPostUpdateListener() {
@@ -48,7 +49,7 @@ export class PostsService {
    }
 
    addPost(title: string, content: string) {
-       const post: Post = {id: null, title: title, content: content, likes: 0, creator: null};
+       const post: Post = {id: null, title: title, content: content, likes: 0, creator: null, facts: null};
        this.http.post<{message: string, postId: string}>("http://localhost:3000/api/posts/", post)
        .subscribe(responseData => {
             const id= responseData.postId;
@@ -59,8 +60,8 @@ export class PostsService {
        });  
    }
 
-   updatePost(id: string, title: string, content: string, likes: number) {
-       const post: Post = { id: id, title: title, content: content, likes: likes, creator: null };
+   updatePost(id: string, title: string, content: string, creator:string, likes: number, facts: any) {
+       const post: Post = { id: id, title: title, content: content, likes: likes, creator: creator, facts: facts };
        this.http.put("http://localhost:3000/api/posts/" + id, post)
        .subscribe(response => {
            const updatedPosts = [...this.posts];
@@ -72,8 +73,8 @@ export class PostsService {
        });
    }
 
-   updateLikes(id: string, title: string, content: string, likes: number, creator: string) {
-       const post: Post = { id: id, title: title, content: content, likes: likes, creator: creator };
+   updateLikes(id: string, title: string, content: string, likes: number, creator: string, facts: any) {
+       const post: Post = { id: id, title: title, content: content, likes: likes, creator: creator, facts: facts };
        this.http.put("http://localhost:3000/api/posts/likes/" + id, post)
        .subscribe(response => {
            const updatedPosts = [...this.posts];

@@ -13,7 +13,8 @@ import { PostsCreateComponent } from './posts/posts-create/posts-create.componen
 import { PostsService } from './posts/posts.service';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import { FactsComponent } from './facts/facts.component';
+import { FactsComponent } from './posts/facts/facts.component';
+import { FactsCreateComponent } from './posts/facts/facts-create/facts-create.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 
 @NgModule({
@@ -26,7 +27,8 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     PostsCreateComponent,
     LoginComponent,
     SignupComponent,
-    FactsComponent
+    FactsComponent,
+    FactsCreateComponent
   ],
   imports: [
     BrowserModule,
