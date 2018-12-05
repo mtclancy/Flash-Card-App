@@ -7,7 +7,8 @@ import { Post } from "../posts.model";
 
 @Component({
     selector: 'app-posts-create',
-    templateUrl: './posts-create.component.html'
+    templateUrl: './posts-create.component.html',
+    styleUrls: ['./posts-create.component.css']
 })
 export class PostsCreateComponent implements OnInit {
     enteredTitle = "";
@@ -40,7 +41,7 @@ export class PostsCreateComponent implements OnInit {
         if(this.mode === 'create') {
             this.postsService.addPost(form.value.title, form.value.content);
         } else {
-            this.postsService.updatePost(this.postId, this.post.creator, form.value.title, form.value.content, this.post.likes, this.post.facts);
+            this.postsService.updatePost(this.postId, form.value.title, form.value.content, this.post.likes, this.post.creator, this.post.facts);
         }
         form.resetForm();
     }

@@ -9,8 +9,13 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { FactsComponent } from './posts/facts/facts.component';
 import { FactsCreateComponent } from './posts/facts/facts-create/facts-create.component';
 import { AuthGuard } from './auth/auth.guard';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes =[
+  {
+    path: '',
+    component: HomeComponent
+  },
   {
     path: 'signup',
     component: SignupComponent

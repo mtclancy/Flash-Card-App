@@ -16,6 +16,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { FactsComponent } from './posts/facts/facts.component';
 import { FactsCreateComponent } from './posts/facts/facts-create/facts-create.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     LoginComponent,
     SignupComponent,
     FactsComponent,
-    FactsCreateComponent
+    FactsCreateComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

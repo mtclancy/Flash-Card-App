@@ -1,3 +1,13 @@
 .post-nav {
     margin: 5px;
 }
+
+.flash {
+    width: 18rem;
+    height: 18rem;
+}
+
+.button-position {
+    position: absolute;
+    bottom: 20px;
+}

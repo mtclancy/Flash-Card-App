@@ -11,7 +11,8 @@ router.post("", checkAuth, (req, res, next) => {
         title: req.body.title,
         content: req.body.content,
         likes: req.body.likes,
-        creator: req.userData.userId
+        creator: req.userData.userId,
+        facts: []
     });
     post.save().then(createdPost => {
         res.status(201).json({
@@ -47,9 +48,29 @@ router.put("/:id", checkAuth, (req, res, next) => {
         title: req.body.title,
         content: req.body.content,
         likes: req.body.likes,
-        creator: req.userData.userId
+        creator: req.body.userId,
+        facts: req.body.facts
     });
     Post.updateOne({_id: req.params.id, creator: req.userData.userId}, post).then(result => {
+        if(result.nModified > 0) {
+            res.status(200).json({ message: "Update successful" });
+        } else {
+            res.status(401).json({ message: "Not authorized"});
+        }
+        
+    });
+});
+
+router.put("/facts/:id", checkAuth, (req, res, next) => {
+    const post = new Post({
+        _id: req.body.id,
+        title: req.body.title,
+        content: req.body.content,
+        likes: req.body.likes,
+        creator: req.body.creator,
+        facts: req.body.facts
+    });
+    Post.updateOne({_id: req.params.id}, {$push: {facts: post.facts}}).then(result => {
         if(result.nModified > 0) {
             res.status(200).json({ message: "Update successful" });
         } else {
@@ -75,7 +96,8 @@ router.put("/likes/:id", checkAuth, (req, res, next) => {
         title: req.body.title,
         content: req.body.content,
         likes: req.body.likes,
-        creator: req.body.creator
+        creator: req.body.creator,
+        facts: req.body.facts
     });
     User.findOne({email: req.userData.email}).then(user => {
         if(user) {

@@ -7,7 +7,8 @@ import { Post } from "../../posts.model";
 
 @Component({
     selector: 'app-facts-create',
-    templateUrl: './facts-create.component.html'
+    templateUrl: './facts-create.component.html',
+    styleUrls: ['./facts-create.component.css']
 })
 
 export class FactsCreateComponent implements OnInit {
@@ -35,7 +36,11 @@ export class FactsCreateComponent implements OnInit {
         if (form.invalid) {
             return;
         } else {
-            this.postsService.updatePost(this.postId, this.post.title, this.post.content, this.post.creator, this.post.likes, form.value.fact);
+            let fact = {
+                fact: form.value.fact,
+                likes: 0
+            };
+            this.postsService.updateFacts(this.postId, this.post.title, this.post.content, this.post.likes, this.post.creator, fact);
         }
         form.resetForm();
     }

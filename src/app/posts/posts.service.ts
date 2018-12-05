@@ -49,7 +49,7 @@ export class PostsService {
    }
 
    addPost(title: string, content: string) {
-       const post: Post = {id: null, title: title, content: content, likes: 0, creator: null, facts: null};
+       const post: Post = {id: null, title: title, content: content, likes: 0, creator: null, facts: []};
        this.http.post<{message: string, postId: string}>("http://localhost:3000/api/posts/", post)
        .subscribe(responseData => {
             const id= responseData.postId;
@@ -60,7 +60,7 @@ export class PostsService {
        });  
    }
 
-   updatePost(id: string, title: string, content: string, creator:string, likes: number, facts: any) {
+   updatePost(id: string, title: string, content: string, likes: number, creator:string, facts: any) {
        const post: Post = { id: id, title: title, content: content, likes: likes, creator: creator, facts: facts };
        this.http.put("http://localhost:3000/api/posts/" + id, post)
        .subscribe(response => {
@@ -72,6 +72,19 @@ export class PostsService {
            this.router.navigate(["/posts"]);
        });
    }
+
+   updateFacts(id: string, title: string, content: string,  likes: number, creator:string, facts: any) {
+    const post: Post = { id: id, title: title, content: content, likes: likes, creator: creator, facts: facts };
+    this.http.put("http://localhost:3000/api/posts/facts/" + id, post)
+    .subscribe(response => {
+        const updatedPosts = [...this.posts];
+        const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
+        updatedPosts[oldPostIndex] = post;
+        this.posts = updatedPosts;
+        this.postsUpdated.next([...this.posts]);
+        this.router.navigate(["/posts/facts/" + id]);
+    });
+}
 
    updateLikes(id: string, title: string, content: string, likes: number, creator: string, facts: any) {
        const post: Post = { id: id, title: title, content: content, likes: likes, creator: creator, facts: facts };
