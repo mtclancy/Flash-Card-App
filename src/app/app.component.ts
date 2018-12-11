@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Post } from './posts/posts.model'
+import { Post } from './posts/posts.model';
+import { Fact } from './posts/facts/facts.model';
 import { AuthService } from './auth/auth.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent implements OnInit {
   storedPosts: Post[] = [];
+  storedFacts: Fact[] = [];
 
   constructor (private authService: AuthService) {}
 

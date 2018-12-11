@@ -1,24 +1,27 @@
-<div>
-  <a [routerLink]="['/posts/facts/facts-create/' + post?.id]" class="btn btn-primary post-nav">Add New Fact</a>
-</div>
-<div>
-  <h2>{{ post?.title }}</h2>
-</div>
+<div class="container">
+  <div>
+    <h2>{{ post?.title }}</h2>
+  </div>
+  <div class="add-fact">
+      <a [routerLink]="['/posts/facts/facts-create/' + post?.id]" class="btn btn-info post-nav">Add New Fact</a>
+  </div>
 
-<table class="table">
+  <table class="table">
     <thead class="thead-dark">
       <tr>
         <th scope="col">Fact</th>
         <th scope="col">Likes</th>
-        <!-- <th><button *ngIf="userIsAuthenticated && userId !== post.creator" (click)="likePost(post)" class="btn btn-success post-nav">Like</button></th> -->
+        <th scope="col">Actions</th>
+       
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let fact of post?.facts">
         <th scope="row">{{fact.fact}}</th>
         <th scope="row">{{fact.likes}}</th>
+        <th><button *ngIf="userIsAuthenticated" (click)="likeFact(fact)" class="btn btn-success post-nav">Like</button></th>
       </tr>
     </tbody>
   </table>
-  
+</div>
   

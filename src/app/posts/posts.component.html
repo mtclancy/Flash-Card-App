@@ -1,18 +1,20 @@
-<h1>Posts</h1>
-<div>
-    <a class="btn btn-info" routerLink="/posts/posts-create" routerLinkActive="active">Create New Post</a>
-</div>
-<div style="padding: 10px; display: inline-block;" *ngFor="let post of posts">
-    <div class="card flash">
-        <div class="card-body">
-            <span style="float:right;">{{ post.likes }}</span>
-            <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">{{ post.content }}</p>
-            <div class="button-position">
-                <button *ngIf="userIsAuthenticated && userId === post.creator" (click)="onDelete(post.id)" class="btn btn-danger post-nav">Delete</button>
-                <a *ngIf="userIsAuthenticated && userId === post.creator" [routerLink]="['/posts/edit', post.id]" class="btn btn-info post-nav">Edit</a>
-                <a [routerLink]="['/posts/facts/', post.id]" class="btn btn-info post-nav">Facts</a>
-                <button *ngIf="userIsAuthenticated && userId !== post.creator" (click)="likePost(post)" class="btn btn-info post-nav">Like</button>
+<div class="container">
+    <h1>Posts</h1>
+    <div class="create-button">
+        <a class="btn btn-info" routerLink="/posts/posts-create" routerLinkActive="active">Create New Post</a>
+    </div>
+    <div style="padding: 10px; display: inline-block;" *ngFor="let post of posts">
+        <div class="card flash">
+            <div class="card-body">
+                <span style="float:right;">{{ post.likes }}</span>
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">{{ post.content }}</p>
+                <div class="button-position">
+                    <button *ngIf="userIsAuthenticated && userId === post.creator" (click)="onDelete(post.id)" class="btn btn-danger post-nav">Delete</button>
+                    <a *ngIf="userIsAuthenticated && userId === post.creator" [routerLink]="['/posts/edit', post.id]" class="btn btn-info post-nav">Edit</a>
+                    <a [routerLink]="['/posts/facts/', post.id]" class="btn btn-info post-nav">Facts</a>
+                    <button *ngIf="userIsAuthenticated && userId !== post.creator" (click)="likePost(post)" class="btn btn-info post-nav">Like</button>
+                </div>
             </div>
         </div>
     </div>
