@@ -32,4 +32,33 @@ router.get("/:id", checkAuth, (req, res, next) => {
    });
 })
 
+router.put("/likes/:id", checkAuth, (req, res, next) => {
+    const fact = new Fact({
+        _id: req.body.id,
+        post: req.body.post,
+        content: req.body.content,
+        likes: req.body.likes,
+        creator: req.body.creator
+    });
+    console.log(fact);
+    User.findOne({email: req.userData.email}).then(user => {
+        if(user) {
+            const likedFacts = user.likedFacts;
+            const match = likedFacts.filter(a => a == req.body.id);
+            if(match.length > 0) {
+                return res.status(401).json({ message: "Fact already liked!"});
+            } else {
+                Fact.updateOne({_id: req.params.id}, fact)
+                .then(result => {
+                     return res.status(200).json({ message: "Update successful" });
+              }).then(() => {
+              User.updateOne({email: req.userData.email}, {$push: {likedFacts: fact._id}})
+              });
+            }
+        } else {
+            return res.status(401).json({ message: "Not Authorized"});
+        }
+    })
+});
+
 module.exports = router;

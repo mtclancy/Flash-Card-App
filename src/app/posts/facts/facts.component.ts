@@ -43,12 +43,17 @@ export class FactsComponent implements OnInit, OnDestroy {
           this.postId = paramMap.get('postId');
           this.factsService.getFacts(this.postId);
           this.postsService.getPost(this.postId).subscribe(postData => {
-              this.post = {id: postData._id, title: postData.title, content: postData.content, likes: postData.likes, creator: postData.creator, facts: postData.facts};
+              this.post = {id: postData._id, title: postData.title, content: postData.content, likes: postData.likes, creator: postData.creator };
           });
       } else {
           this.postId = null;
       }
     });
+  }
+
+  likeFact(fact: Fact) {
+    console.log(fact);
+    this.factsService.updateLikes(fact.id, fact.post, fact.content, fact.likes + 1, fact.creator);
   }
 
   ngOnDestroy() {

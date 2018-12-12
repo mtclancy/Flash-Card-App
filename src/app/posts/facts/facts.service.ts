@@ -19,7 +19,11 @@ export class FactsService {
         const fact: Fact = { id: null, post: postId, content: content, likes: 0, creator: null };
         this.http.post<{message: string, factId: string}>("http://localhost:3000/api/facts/", fact)
             .subscribe(responseData => {
-                console.log(responseData);
+                const id= responseData.factId;
+                fact.id = id;
+                this.facts.push(fact);
+                this.factsUpdated.next([...this.facts]);
+                this.router.navigate(["/posts/facts/" + fact.post]);
             });
     }
 
@@ -41,12 +45,24 @@ export class FactsService {
                 return b.likes - a.likes;
             });
         this.facts = transformedFacts;
-        console.log(this.facts);
         this.factsUpdated.next([...this.facts]);
        });
     }
 
     getFactUpdateListener() {
         return this.factsUpdated.asObservable();
+    }
+
+    updateLikes(id: string, post: string, content: string, likes: number, creator: string) {
+        const fact: Fact = { id: id, post: post, content: content, likes: likes, creator: creator};
+        this.http.put("http://localhost:3000/api/facts/likes/" + id, fact)
+        .subscribe(response => {
+            const updatedFacts = [...this.facts];
+            const oldFactIndex = updatedFacts.findIndex(f => f.id === fact.id);
+            updatedFacts[oldFactIndex] = fact;
+            this.facts = updatedFacts;
+            this.factsUpdated.next([...this.facts]);
+            this.getFacts(fact.post);
+        });
     }
 }
