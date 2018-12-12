@@ -16,10 +16,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let fact of post?.facts">
-        <th scope="row">{{fact.fact}}</th>
-        <th scope="row">{{fact.likes}}</th>
-        <th><button *ngIf="userIsAuthenticated" (click)="likeFact(fact)" class="btn btn-success post-nav">Like</button></th>
+      <tr>
+        <th scope="row">nothing</th>
+        <th scope="row">nothing</th>
+        <th><button *ngIf="userIsAuthenticated" class="btn btn-success post-nav">Like</button></th>
       </tr>
     </tbody>
   </table>

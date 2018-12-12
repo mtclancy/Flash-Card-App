@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-const factSetSchema = mongoose.Schema({
+const factSchema = mongoose.Schema({
     post: { type: mongoose.Schema.Types.ObjectId, ref: "Post", required: true },
-    facts: { type: Array },
+    content: { type: String },
     likes: { type: Number, required: true },
     creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
 });
 
-module.exports = mongoose.model('FactSet', factSetSchema);
+module.exports = mongoose.model('Fact', factSchema);

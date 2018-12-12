@@ -11,6 +11,7 @@ import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { PostsCreateComponent } from './posts/posts-create/posts-create.component';
 import { PostsService } from './posts/posts.service';
+import { FactsService } from './posts/facts/facts.service';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { FactsComponent } from './posts/facts/facts.component';
@@ -38,7 +39,10 @@ import { HomeComponent } from './home/home.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [PostsService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  providers: [
+    PostsService,
+    FactsService, 
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

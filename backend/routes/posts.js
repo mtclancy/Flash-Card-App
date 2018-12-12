@@ -61,24 +61,24 @@ router.put("/:id", checkAuth, (req, res, next) => {
     });
 });
 
-router.put("/facts/:id", checkAuth, (req, res, next) => {
-    const post = new Post({
-        _id: req.body.id,
-        title: req.body.title,
-        content: req.body.content,
-        likes: req.body.likes,
-        creator: req.body.creator,
-        facts: req.body.facts
-    });
-    Post.updateOne({_id: req.params.id}, {$push: {facts: post.facts}}).then(result => {
-        if(result.nModified > 0) {
-            res.status(200).json({ message: "Update successful" });
-        } else {
-            res.status(401).json({ message: "Not authorized"});
-        }
+// router.put("/facts/:id", checkAuth, (req, res, next) => {
+//     const post = new Post({
+//         _id: req.body.id,
+//         title: req.body.title,
+//         content: req.body.content,
+//         likes: req.body.likes,
+//         creator: req.body.creator,
+//         facts: req.body.facts
+//     });
+//     Post.updateOne({_id: req.params.id}, {$push: {facts: post.facts}}).then(result => {
+//         if(result.nModified > 0) {
+//             res.status(200).json({ message: "Update successful" });
+//         } else {
+//             res.status(401).json({ message: "Not authorized"});
+//         }
         
-    });
-});
+//     });
+// });
 
 router.delete("/:id", checkAuth, (req, res, next) => {
     Post.deleteOne({ _id: req.params.id, creator: req.userData.userId}).then(result => {
@@ -111,7 +111,6 @@ router.put("/likes/:id", checkAuth, (req, res, next) => {
                      return res.status(200).json({ message: "Update successful" });
               }).then(() => {
               User.updateOne({email: req.userData.email}, {$push: {likedPosts: post._id}}).then(user => {
-                  console.log(user);
                   });
               });
             }

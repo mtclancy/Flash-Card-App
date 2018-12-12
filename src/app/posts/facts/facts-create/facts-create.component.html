@@ -1,9 +1,9 @@
 <h1>New Fact</h1>
 <div class="container">
-    <form (submit)="saveFact(postForm)" #postForm="ngForm">
+    <form (submit)="addFact(factForm)" #factForm="ngForm">
         <div class="form-group">
-            <label for="post-fact">Fact</label>
-            <textarea id="post-fact" class="form-control" rows="6" name="fact" [ngModel]="post?.fact" required placeholder="Enter Fact" #content="ngModel"></textarea>
+            <label for="fact-content">Fact</label>
+            <textarea id="fact-content" class="form-control" rows="6" name="content" [ngModel]="fact?.content" required placeholder="Enter Fact" #content="ngModel"></textarea>
         </div>
         <button class="btn btn-primary" type="submit">Save Fact</button>
     </form>
