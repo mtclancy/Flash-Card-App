@@ -10,3 +10,13 @@
         </div>
         <button type="submit" class="btn btn-primary">Register</button>
     </form>
+    <div class="response-msg">
+        <div *ngIf="message ==='User created'" class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+
+        <div *ngIf="message ==='Registration failed, an account may already exist.'" class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    </div>
+    

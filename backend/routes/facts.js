@@ -52,7 +52,7 @@ router.put("/likes/:id", checkAuth, (req, res, next) => {
                 .then(result => {
                      return res.status(200).json({ message: "Update successful" });
               }).then(() => {
-              User.updateOne({email: req.userData.email}, {$push: {likedFacts: fact._id}})
+                    return User.updateOne({email: req.userData.email}, {$push: {likedFacts: fact._id}})
               });
             }
         } else {

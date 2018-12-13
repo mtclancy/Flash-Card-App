@@ -1,14 +1,14 @@
-<h1>Posts</h1>
+<h1>Topic</h1>
 <div class="container">
     <form (submit)="savePost(postForm)" #postForm="ngForm">
         <div class="form-group">
             <label for="post-title">Title</label>
-            <input id="post-title" class="form-control" type="text" name="title" [ngModel]="post?.title" required placeholder="Post Title" #title="ngModel">
+            <input id="post-title" class="form-control" type="text" name="title" [ngModel]="post?.title" required placeholder="Title" #title="ngModel">
         </div>
         <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" class="form-control" rows="6" name="content" [ngModel]="post?.content" required placeholder="Post Content" #content="ngModel"></textarea>
+            <label for="message">Description</label>
+            <textarea id="message" class="form-control" rows="6" name="content" [ngModel]="post?.content" required placeholder="Content" #content="ngModel"></textarea>
         </div>
-        <button class="btn btn-primary" type="submit">Save Post</button>
+        <button class="btn btn-primary" type="submit">Save Topic</button>
     </form>
 </div>

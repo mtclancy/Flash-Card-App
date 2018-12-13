@@ -12,6 +12,7 @@ export class AuthService {
     private tokenTimer: any;
     private userId: string;
     private authStatusListener = new Subject<boolean>();
+    private messageUpdated = new Subject<string>();
 
     constructor(private http: HttpClient, private router: Router) {}
 
@@ -21,6 +22,10 @@ export class AuthService {
 
     getIsAuth() {
         return this.isAuthenticated;
+    }
+
+    getMessageUpdatedListener() {
+        return this.messageUpdated.asObservable();
     }
 
     getUserId() {
@@ -34,8 +39,11 @@ export class AuthService {
     createUser(email: string, password: string) {
         const authData: AuthData = {email: email, password: password};
         this.http.post("http://localhost:3000/api/user/signup", authData)
-          .subscribe(response => {
-              console.log(response);
+          .subscribe((response: any) => {
+              this.messageUpdated.next(response.message);
+          },
+          (err) => {
+            this.messageUpdated.next(err.error.message);
           });
     }
 

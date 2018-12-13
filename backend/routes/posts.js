@@ -86,9 +86,9 @@ router.put("/likes/:id", checkAuth, (req, res, next) => {
             } else {
                 Post.updateOne({_id: req.params.id}, post)
                 .then(result => {
-                     return res.status(200).json({ message: "Update successful" });
+                   return res.status(200).json({ message: "Update successful" });
               }).then(() => {
-              User.updateOne({email: req.userData.email}, {$push: {likedPosts: post._id}})
+               return User.updateOne({email: req.userData.email}, {$push: {likedPosts: post._id}})
               });
             }
         } else {
