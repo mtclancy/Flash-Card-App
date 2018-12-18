@@ -39,9 +39,7 @@ export class PostsComponent implements OnInit, OnDestroy {
     this.postsService.deletePost(postId);
   }
 
-  likePost(post: Post) {
-    this.postsService.updateLikes(post.id, post.title, post.content, post.likes + 1, post.creator);
-  }
+  
 
   ngOnDestroy() {
     this.postsSub.unsubscribe();

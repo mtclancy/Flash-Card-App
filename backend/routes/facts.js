@@ -40,7 +40,6 @@ router.put("/likes/:id", checkAuth, (req, res, next) => {
         likes: req.body.likes,
         creator: req.body.creator
     });
-    console.log(fact);
     User.findOne({email: req.userData.email}).then(user => {
         if(user) {
             const likedFacts = user.likedFacts;

@@ -4,6 +4,7 @@
   </div>
   <div class="add-fact">
       <a [routerLink]="['/posts/facts/facts-create/' + post?.id]" class="btn btn-info post-nav">Add New Fact</a>
+      <button *ngIf="userIsAuthenticated && userId !== post?.creator" (click)="likePost(post)" class="btn btn-success post-nav like">Like Topic</button>
   </div>
 
   <table class="table">

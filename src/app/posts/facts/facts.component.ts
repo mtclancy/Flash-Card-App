@@ -51,6 +51,10 @@ export class FactsComponent implements OnInit, OnDestroy {
     });
   }
 
+  likePost(post: Post) {
+    this.postsService.updateLikes(post.id, post.title, post.content, post.likes + 1, post.creator);
+  }
+
   likeFact(fact: Fact) {
     console.log(fact);
     this.factsService.updateLikes(fact.id, fact.post, fact.content, fact.likes + 1, fact.creator);
