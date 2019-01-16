@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 
 import { Fact } from "../facts/facts.model";
 import { Post } from "../posts.model";
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
     selector: 'app-facts',

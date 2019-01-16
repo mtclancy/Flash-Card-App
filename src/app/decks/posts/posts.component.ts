@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { Post } from './posts.model'
 import { PostsService } from './posts.service';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-posts',

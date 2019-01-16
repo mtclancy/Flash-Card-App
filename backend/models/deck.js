@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 
-const postSchema = mongoose.Schema({
-    deck: { type: mongoose.Schema.Types.ObjectId, ref: "Deck", required: true },
+const deckSchema = mongoose.Schema({
     title: { type: String, required: true },
     content: { type: String, required: true },
     likes: { type: Number, required: true },
     creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 });
 
-module.exports = mongoose.model('Post', postSchema);
+module.exports = mongoose.model('Deck', deckSchema);

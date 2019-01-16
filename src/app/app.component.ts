@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Post } from './posts/posts.model';
-import { Fact } from './posts/facts/facts.model';
+import { Post } from './decks/posts/posts.model';
+import { Fact } from './decks/posts/facts/facts.model';
 import { AuthService } from './auth/auth.service';
 
 @Component({

@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.post("", checkAuth, (req, res, next) => {
     const post = new Post({
+        deck: req.body.deck,
         title: req.body.title,
         content: req.body.content,
         likes: req.body.likes,

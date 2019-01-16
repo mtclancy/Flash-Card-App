@@ -5,17 +5,17 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
-import { PostsComponent } from './posts/posts.component';
+import { PostsComponent } from './decks/posts/posts.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { PostsCreateComponent } from './posts/posts-create/posts-create.component';
-import { PostsService } from './posts/posts.service';
-import { FactsService } from './posts/facts/facts.service';
+import { PostsCreateComponent } from './decks/posts/posts-create/posts-create.component';
+import { PostsService } from './decks/posts/posts.service';
+import { FactsService } from './decks/posts/facts/facts.service';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import { FactsComponent } from './posts/facts/facts.component';
-import { FactsCreateComponent } from './posts/facts/facts-create/facts-create.component';
+import { FactsComponent } from './decks/posts/facts/facts.component';
+import { FactsCreateComponent } from './decks/posts/facts/facts-create/facts-create.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { HomeComponent } from './home/home.component';
 
