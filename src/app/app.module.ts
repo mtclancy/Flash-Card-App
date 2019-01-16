@@ -18,6 +18,9 @@ import { FactsComponent } from './decks/posts/facts/facts.component';
 import { FactsCreateComponent } from './decks/posts/facts/facts-create/facts-create.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { HomeComponent } from './home/home.component';
+import { DecksComponent } from './decks/deck.component';
+import { DeckCreateComponent } from './decks/deck-create/deck-create.component';
+import { DeckService } from './decks/deck.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,9 @@ import { HomeComponent } from './home/home.component';
     SignupComponent,
     FactsComponent,
     FactsCreateComponent,
-    HomeComponent
+    HomeComponent,
+    DecksComponent,
+    DeckCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +46,8 @@ import { HomeComponent } from './home/home.component';
   ],
   providers: [
     PostsService,
-    FactsService, 
+    FactsService,
+    DeckService, 
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })

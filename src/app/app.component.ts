@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Post } from './decks/posts/posts.model';
 import { Fact } from './decks/posts/facts/facts.model';
+import { Deck } from './decks/deck.model';
 import { AuthService } from './auth/auth.service';
 
 @Component({
@@ -12,6 +13,7 @@ import { AuthService } from './auth/auth.service';
 export class AppComponent implements OnInit {
   storedPosts: Post[] = [];
   storedFacts: Fact[] = [];
+  storedDecks: Deck[] = [];
 
   constructor (private authService: AuthService) {}
 

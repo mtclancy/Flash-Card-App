@@ -1,0 +1,14 @@
+<h1>Deck</h1>
+<div class="container">
+    <form (submit)="saveDeck(deckForm)" #deckForm="ngForm">
+        <div class="form-group">
+            <label for="deck-title">Title</label>
+            <input id="deck-title" class="form-control" type="text" name="title" [ngModel]="deck?.title" required placeholder="Title" #title="ngModel">
+        </div>
+        <div class="form-group">
+            <label for="message">Description</label>
+            <textarea id="message" class="form-control" rows="6" name="content" [ngModel]="deck?.content" required placeholder="Content" #content="ngModel"></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Save Topic</button>
+    </form>
+</div>

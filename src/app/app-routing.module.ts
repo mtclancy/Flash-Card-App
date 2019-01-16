@@ -10,6 +10,8 @@ import { FactsComponent } from './decks/posts/facts/facts.component';
 import { FactsCreateComponent } from './decks/posts/facts/facts-create/facts-create.component';
 import { AuthGuard } from './auth/auth.guard';
 import { HomeComponent } from './home/home.component';
+import { DecksComponent } from './decks/deck.component';
+import { DeckCreateComponent } from './decks/deck-create/deck-create.component';
 
 const routes: Routes =[
   {
@@ -27,6 +29,15 @@ const routes: Routes =[
   {
     path: 'users',
     component: UsersComponent
+  },
+  {
+    path: 'decks',
+    component: DecksComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'decks/deck-create',
+    component: DeckCreateComponent
   },
   {
     path: 'posts',
