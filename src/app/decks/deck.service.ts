@@ -12,7 +12,6 @@ export class DeckService {
     
     private decksUpdated = new Subject<Deck[]>();
 
-
     constructor(private http: HttpClient, private router: Router) {}
 
     addDeck(title: string, content: string) {
@@ -25,6 +24,36 @@ export class DeckService {
             this.decksUpdated.next([...this.decks]);
             this.router.navigate(["/decks"]);
        });  
+    }
+
+    getDecks() {
+        this.http
+       .get<{ message: string; decks: any }>(
+           "http://localhost:3000/api/decks"
+        )
+        .pipe(map(deckData => {
+            return deckData.decks.map(deck => {
+                return {
+                    title: deck.title,
+                    content: deck.content,
+                    id: deck._id,
+                    likes: deck.likes,
+                    creator: deck.creator
+                };
+            });
+        }))
+        .subscribe(transformedDecks => {
+            transformedDecks.sort((a, b) => {
+                return b.likes - a.likes;
+            });
+        this.decks = transformedDecks;
+        console.log(this.decks);
+        this.decksUpdated.next([...this.decks]);
+       });
+    }
+
+    getDeckUpdateListener() {
+        return this.decksUpdated.asObservable();
     }
 
 }

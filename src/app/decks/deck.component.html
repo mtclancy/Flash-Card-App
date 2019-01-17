@@ -3,18 +3,18 @@
     <div class="create-button">
         <a class="btn btn-info" routerLink="/decks/deck-create" routerLinkActive="active">Create New Deck</a>
     </div>
-    <!-- <div style="padding: 10px; display: inline-block;" *ngFor="let post of posts">
+    <div style="padding: 10px; display: inline-block;" *ngFor="let deck of decks">
         <div class="card flash">
             <div class="card-body">
-                <span style="float:right;">{{ post.likes }}</span>
-                <h5 class="card-title">{{ post.title }}</h5>
-                <p class="card-text">{{ post.content }}</p>
-                <div class="button-position">
+                <span style="float:right;">{{ deck.likes }}</span>
+                <h5 class="card-title">{{ deck.title }}</h5>
+                <p class="card-text">{{ deck.content }}</p>
+                <!-- <div class="button-position">
                     <button *ngIf="userIsAuthenticated && userId === post.creator" (click)="onDelete(post.id)" class="btn btn-danger post-nav">Delete</button>
                     <a *ngIf="userIsAuthenticated && userId === post.creator" [routerLink]="['/posts/edit', post.id]" class="btn btn-info post-nav">Edit</a>
                     <a [routerLink]="['/posts/facts/', post.id]" class="btn btn-info post-nav">Facts</a>
-                </div>
+                </div> -->
             </div>
         </div>
-    </div> -->
+    </div>
 </div>

@@ -21,4 +21,14 @@ router.post("", checkAuth, (req, res, next) => {
     });
 });
 
+router.get("", (req, res, next) => {
+    Deck.find()
+     .then(documents => {
+         res.status(200).json({
+             message: 'Decks fetched successfully',
+             decks: documents
+         }); 
+    });
+ });
+
 module.exports = router;
