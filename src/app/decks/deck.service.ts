@@ -60,4 +60,13 @@ export class DeckService {
         return this.http.get<{_id: string; title: string; content: string; likes: number; creator: string }>("http://localhost:3000/api/decks/" + id);
     }
 
+    deleteDeck(deckId: string) {
+        this.http.delete("http://localhost:3000/api/decks/" + deckId)
+         .subscribe(() => {
+         const updatedDecks = this.decks.filter(deck => deck.id !== deckId);
+         this.decks = updatedDecks;
+         this.decksUpdated.next([...this.decks]);
+         });
+    }
+
 }

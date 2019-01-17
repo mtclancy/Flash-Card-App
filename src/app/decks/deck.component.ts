@@ -33,7 +33,11 @@ import { AuthService } from '../auth/auth.service';
       this.decksSub = this.deckService.getDeckUpdateListener()
         .subscribe((decks: Deck[]) => {
       this.decks = decks;
-    });
+      });
+    }
+
+    onDelete(deckId: string) {
+      this.deckService.deleteDeck(deckId);
     }
 
     ngOnDestroy() {

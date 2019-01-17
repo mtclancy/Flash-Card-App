@@ -1,6 +1,5 @@
 <div class="container">
   <nav class="nav flex-column my-sidebar">
-    <a class="nav-link active text-light" routerLink="/posts">Topics</a>
     <a *ngIf="userIsAuthenticated" class="nav-link text-light" routerLink="/decks/deck-create">Create Deck</a>
     <a class="nav-link active text-light" routerLink="/decks">Decks</a>
   </nav>

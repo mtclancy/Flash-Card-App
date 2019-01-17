@@ -40,10 +40,6 @@ const routes: Routes =[
     component: DeckCreateComponent
   },
   {
-    path: 'posts',
-    component: PostsComponent
-  },
-  {
     path: 'decks/:deckId',
     component: PostsComponent
   },

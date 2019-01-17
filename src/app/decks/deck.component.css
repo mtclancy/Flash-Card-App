@@ -1,0 +1,14 @@
+.button-position {
+    position: absolute;
+    bottom: 20px;
+}
+.create-button {
+    padding: 15px;
+}
+.flash {
+    width: 18rem;
+    height: 18rem;
+}
+.post-nav {
+    margin: 5px;
+}

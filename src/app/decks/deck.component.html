@@ -10,8 +10,8 @@
                 <h5 class="card-title">{{ deck.title }}</h5>
                 <p class="card-text">{{ deck.content }}</p>
                 <div class="button-position">
-                    <!-- <button *ngIf="userIsAuthenticated && userId === post.creator" (click)="onDelete(post.id)" class="btn btn-danger post-nav">Delete</button>
-                    <a *ngIf="userIsAuthenticated && userId === post.creator" [routerLink]="['/posts/edit', post.id]" class="btn btn-info post-nav">Edit</a> -->
+                    <button *ngIf="userIsAuthenticated && userId === deck.creator" (click)="onDelete(deck.id)" class="btn btn-danger post-nav">Delete</button>
+                    <!-- <a *ngIf="userIsAuthenticated && userId === deck.creator" [routerLink]="['/posts/edit', post.id]" class="btn btn-info post-nav">Edit</a> -->
                     <a [routerLink]="['/decks/', deck.id]" class="btn btn-info post-nav">Topics</a>
                 </div>
             </div>
