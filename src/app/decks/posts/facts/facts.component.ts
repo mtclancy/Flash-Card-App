@@ -43,7 +43,7 @@ export class FactsComponent implements OnInit, OnDestroy {
           this.postId = paramMap.get('postId');
           this.factsService.getFacts(this.postId);
           this.postsService.getPost(this.postId).subscribe(postData => {
-              this.post = {id: postData._id, title: postData.title, content: postData.content, likes: postData.likes, creator: postData.creator };
+              this.post = {id: postData._id, deck: postData.deck, title: postData.title, content: postData.content, likes: postData.likes, creator: postData.creator };
           });
       } else {
           this.postId = null;
@@ -52,7 +52,7 @@ export class FactsComponent implements OnInit, OnDestroy {
   }
 
   likePost(post: Post) {
-    this.postsService.updateLikes(post.id, post.title, post.content, post.likes + 1, post.creator);
+    this.postsService.updateLikes(post.id, post.deck, post.title, post.content, post.likes + 1, post.creator);
   }
 
   likeFact(fact: Fact) {

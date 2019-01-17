@@ -56,4 +56,8 @@ export class DeckService {
         return this.decksUpdated.asObservable();
     }
 
+    getDeck(id: string) {
+        return this.http.get<{_id: string; title: string; content: string; likes: number; creator: string }>("http://localhost:3000/api/decks/" + id);
+    }
+
 }

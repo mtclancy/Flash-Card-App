@@ -38,5 +38,6 @@ import { AuthService } from '../auth/auth.service';
 
     ngOnDestroy() {
       this.authStatusSub.unsubscribe();
+      this.decksSub.unsubscribe();
     }
   }

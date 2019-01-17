@@ -44,7 +44,11 @@ const routes: Routes =[
     component: PostsComponent
   },
   {
-    path: 'posts/posts-create',
+    path: 'decks/:deckId',
+    component: PostsComponent
+  },
+  {
+    path: 'posts/posts-create/:deckId',
     component: PostsCreateComponent,
     canActivate: [AuthGuard]
   },

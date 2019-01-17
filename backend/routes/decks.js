@@ -31,4 +31,14 @@ router.get("", (req, res, next) => {
     });
  });
 
+ router.get("/:id", checkAuth, (req, res, next) => {
+    Deck.findById(req.params.id).then(deck => {
+        if (deck) {
+            res.status(200).json(deck);
+        } else {
+            res.status(200).json({ message: 'Deck not found!'});
+        }
+    });
+});
+
 module.exports = router;

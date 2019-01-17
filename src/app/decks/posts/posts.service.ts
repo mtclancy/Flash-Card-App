@@ -15,53 +15,76 @@ export class PostsService {
 
     constructor(private http: HttpClient, private router: Router) {}
 
-   getPosts() {
-       this.http
-       .get<{ message: string; posts: any }>(
-           "http://localhost:3000/api/posts"
-        )
-        .pipe(map(postData => {
-            return postData.posts.map(post => {
-                return {
-                    title: post.title,
-                    content: post.content,
-                    id: post._id,
-                    likes: post.likes,
-                    creator: post.creator
-                };
-            });
-        }))
-        .subscribe(transformedPosts => {
-            transformedPosts.sort((a, b) => {
-                return b.likes - a.likes;
-            });
-        this.posts = transformedPosts;
-        this.postsUpdated.next([...this.posts]);
-       });
-   }
+//    getPosts() {
+//        this.http
+//        .get<{ message: string; posts: any }>(
+//            "http://localhost:3000/api/posts"
+//         )
+//         .pipe(map(postData => {
+//             return postData.posts.map(post => {
+//                 return {
+//                     title: post.title,
+//                     content: post.content,
+//                     id: post._id,
+//                     likes: post.likes,
+//                     creator: post.creator
+//                 };
+//             });
+//         }))
+//         .subscribe(transformedPosts => {
+//             transformedPosts.sort((a, b) => {
+//                 return b.likes - a.likes;
+//             });
+//         this.posts = transformedPosts;
+//         this.postsUpdated.next([...this.posts]);
+//        });
+//    }
 
    getPost(id: string) {
-       return this.http.get<{_id: string; title: string; content: string; likes: number; creator: string }>("http://localhost:3000/api/posts/" + id);
+       return this.http.get<{_id: string; deck: string; title: string; content: string; likes: number; creator: string }>("http://localhost:3000/api/posts/post/" + id);
    }
+
+   getPosts(id: string) {
+    this.http.get<{message: string, posts: any}>("http://localhost:3000/api/posts/" + id)
+    .pipe(map(postData => {
+        return postData.posts.map(post => {
+            return {
+                deck: post.deck,
+                title: post.title,
+                content: post.content,
+                id: post._id,
+                likes: post.likes,
+                creator: post.creator
+            };
+        });
+    }))
+    .subscribe(transformedPosts => {
+        transformedPosts.sort((a, b) => {
+            return b.likes - a.likes;
+        });
+    this.posts = transformedPosts;
+    this.postsUpdated.next([...this.posts]);
+   });
+}
 
    getPostUpdateListener() {
        return this.postsUpdated.asObservable();
    }
 
-   addPost(title: string, content: string) {
-       const post: Post = {id: null, title: title, content: content, likes: 0, creator: null };
+   addPost(deckId: string, title: string, content: string) {
+       const post: Post = {id: null, deck: deckId, title: title, content: content, likes: 0, creator: null };
        this.http.post<{message: string, postId: string}>("http://localhost:3000/api/posts/", post)
        .subscribe(responseData => {
             const id= responseData.postId;
             post.id = id;
             this.posts.push(post);
             this.postsUpdated.next([...this.posts]);
-            this.router.navigate(["/posts"]);
+            this.router.navigate(["/decks/" + post.deck]);
        });  
    }
 
-   updatePost(id: string, title: string, content: string, likes: number, creator:string) {
-       const post: Post = { id: id, title: title, content: content, likes: likes, creator: creator };
+   updatePost(id: string, deck: string, title: string, content: string, likes: number, creator:string) {
+       const post: Post = { id: id, deck: deck, title: title, content: content, likes: likes, creator: creator };
        this.http.put("http://localhost:3000/api/posts/" + id, post)
        .subscribe(response => {
            const updatedPosts = [...this.posts];
@@ -69,12 +92,12 @@ export class PostsService {
            updatedPosts[oldPostIndex] = post;
            this.posts = updatedPosts;
            this.postsUpdated.next([...this.posts]);
-           this.router.navigate(["/posts"]);
+           this.router.navigate(["/decks/" + post.deck]);
        });
    }
 
-   updateLikes(id: string, title: string, content: string, likes: number, creator: string ) {
-       const post: Post = { id: id, title: title, content: content, likes: likes, creator: creator };
+   updateLikes(id: string, deck: string, title: string, content: string, likes: number, creator: string ) {
+       const post: Post = { id: id, deck: deck, title: title, content: content, likes: likes, creator: creator };
        this.http.put("http://localhost:3000/api/posts/likes/" + id, post)
        .subscribe(response => {
            const updatedPosts = [...this.posts];
@@ -82,7 +105,7 @@ export class PostsService {
            updatedPosts[oldPostIndex] = post;
            this.posts = updatedPosts;
            this.postsUpdated.next([...this.posts]);
-           this.getPosts();
+           this.getPosts(post.deck);
        });
    }
 
