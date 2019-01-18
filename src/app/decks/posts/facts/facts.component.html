@@ -20,7 +20,7 @@
       <tr *ngFor="let fact of facts">
         <th scope="row">{{ fact.content }}</th>
         <th scope="row">{{ fact.likes }}</th>
-        <th><button *ngIf="userIsAuthenticated" (click)="likeFact(fact)" class="btn btn-success post-nav">Like</button></th>
+        <th><button *ngIf="userIsAuthenticated && userId !== fact?.creator" (click)="likeFact(fact)" class="btn btn-success post-nav">Like</button></th>
       </tr>
     </tbody>
   </table>
