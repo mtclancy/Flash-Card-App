@@ -4,8 +4,11 @@ import { Subject } from "rxjs";
 import { map } from 'rxjs/operators';
 import { Router } from "@angular/router";
 
+import { environment } from "../../../environments/environment";
 import { Post } from "./posts.model";
 import { Title } from "@angular/platform-browser";
+
+const BACKEND_URL = environment.apiUrl;
 
 @Injectable({ providedIn: "root" })
 export class PostsService {
@@ -41,11 +44,11 @@ export class PostsService {
 //    }
 
    getPost(id: string) {
-       return this.http.get<{_id: string; deck: string; title: string; content: string; likes: number; creator: string }>("http://localhost:3000/api/posts/post/" + id);
+       return this.http.get<{_id: string; deck: string; title: string; content: string; likes: number; creator: string }>(BACKEND_URL + "/posts/post/" + id);
    }
 
    getPosts(id: string) {
-    this.http.get<{message: string, posts: any}>("http://localhost:3000/api/posts/" + id)
+    this.http.get<{message: string, posts: any}>(BACKEND_URL + "/posts/" + id)
     .pipe(map(postData => {
         return postData.posts.map(post => {
             return {
@@ -73,7 +76,7 @@ export class PostsService {
 
    addPost(deckId: string, title: string, content: string) {
        const post: Post = {id: null, deck: deckId, title: title, content: content, likes: 0, creator: null };
-       this.http.post<{message: string, postId: string}>("http://localhost:3000/api/posts/", post)
+       this.http.post<{message: string, postId: string}>(BACKEND_URL + "/posts/", post)
        .subscribe(responseData => {
             const id= responseData.postId;
             post.id = id;
@@ -85,7 +88,7 @@ export class PostsService {
 
    updatePost(id: string, deck: string, title: string, content: string, likes: number, creator:string) {
        const post: Post = { id: id, deck: deck, title: title, content: content, likes: likes, creator: creator };
-       this.http.put("http://localhost:3000/api/posts/" + id, post)
+       this.http.put(BACKEND_URL + "/posts/" + id, post)
        .subscribe(response => {
            const updatedPosts = [...this.posts];
            const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
@@ -98,7 +101,7 @@ export class PostsService {
 
    updateLikes(id: string, deck: string, title: string, content: string, likes: number, creator: string ) {
        const post: Post = { id: id, deck: deck, title: title, content: content, likes: likes, creator: creator };
-       this.http.put("http://localhost:3000/api/posts/likes/" + id, post)
+       this.http.put(BACKEND_URL + "/posts/likes/" + id, post)
        .subscribe(response => {
            const updatedPosts = [...this.posts];
            const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
@@ -110,7 +113,7 @@ export class PostsService {
    }
 
    deletePost(postId: string) {
-       this.http.delete("http://localhost:3000/api/posts/" + postId)
+       this.http.delete(BACKEND_URL + "/posts/" + postId)
         .subscribe(() => {
         const updatedPosts = this.posts.filter(post => post.id !== postId);
         this.posts = updatedPosts;

@@ -4,7 +4,10 @@ import { Subject } from "rxjs";
 import { map } from 'rxjs/operators';
 import { Router } from "@angular/router";
 
+import { environment } from "../../environments/environment";
 import { Deck } from './deck.model';
+
+const BACKEND_URL = environment.apiUrl;
 
 @Injectable({ providedIn: "root" })
 export class DeckService {
@@ -16,7 +19,7 @@ export class DeckService {
 
     addDeck(title: string, content: string) {
         const deck: Deck = {id: null, title: title, content: content, likes: 0, creator: null };
-        this.http.post<{message: string, deckId: string}>("http://localhost:3000/api/decks/", deck)
+        this.http.post<{message: string, deckId: string}>(BACKEND_URL + "/decks/", deck)
        .subscribe(responseData => {
             const id= responseData.deckId;
             deck.id = id;
@@ -29,7 +32,7 @@ export class DeckService {
     getDecks() {
         this.http
        .get<{ message: string; decks: any }>(
-           "http://localhost:3000/api/decks"
+        BACKEND_URL + "/decks"
         )
         .pipe(map(deckData => {
             return deckData.decks.map(deck => {
@@ -57,11 +60,11 @@ export class DeckService {
     }
 
     getDeck(id: string) {
-        return this.http.get<{_id: string; title: string; content: string; likes: number; creator: string }>("http://localhost:3000/api/decks/" + id);
+        return this.http.get<{_id: string; title: string; content: string; likes: number; creator: string }>(BACKEND_URL + "/decks/" + id);
     }
 
     deleteDeck(deckId: string) {
-        this.http.delete("http://localhost:3000/api/decks/" + deckId)
+        this.http.delete(BACKEND_URL + "/decks/" + deckId)
          .subscribe(() => {
          const updatedDecks = this.decks.filter(deck => deck.id !== deckId);
          this.decks = updatedDecks;
