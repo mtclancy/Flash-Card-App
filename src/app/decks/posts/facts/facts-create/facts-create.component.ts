@@ -5,6 +5,7 @@ import { PostsService } from "../../posts.service";
 
 import { FactsService } from '../facts.service';
 import { Post } from "../../posts.model";
+import { Fact } from "../facts.model";
 
 @Component({
     selector: 'app-facts-create',
@@ -15,6 +16,7 @@ import { Post } from "../../posts.model";
 export class FactsCreateComponent implements OnInit {
     private postId: string;
     post: Post;
+    fact: Fact;
     
     constructor(public postsService: PostsService, public factsService: FactsService, public route: ActivatedRoute) {}
     
